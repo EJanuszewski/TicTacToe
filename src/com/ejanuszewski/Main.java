@@ -66,9 +66,6 @@ public class Main {
         for(String[] row : board) {
             System.out.println(row[0] + "|" + row[1] + "|" + row[2]);
         }
-//        System.out.println("___|___|___");
-//        System.out.println("___|___|___");
-//        System.out.println("   |   |   ");
     }
 
     private static void takeGo() {
@@ -78,7 +75,7 @@ public class Main {
         input = scanner.next().toUpperCase();
 
         try {
-            if(setMarker(currentPlayer, input)) {
+            if(setMarker(input)) {
                 drawBoard();
 
                 //Check if that move the game
@@ -102,12 +99,12 @@ public class Main {
         }
     }
 
-    private static boolean setMarker(Player player, String position) {
+    private static boolean setMarker(String position) {
         coords = position.split(",");
         coordX = Integer.parseInt(coords[0]) - 1;
         coordY = Integer.parseInt(coords[1]) - 1;
         if(board[coordY][coordX].equals("-")) {
-            board[coordY][coordX] = player.getSide();
+            board[coordY][coordX] = currentPlayer.getSide();
             return true;
         } else {
             return false;
@@ -117,15 +114,32 @@ public class Main {
     private static boolean hasWon(Player player) {
         String side = player.getSide();
         int rowCount = 0;
+        //Horizontal line
         for(String[] row : board) {
-            //Horizontal line
             for(String cell : row) {
                 if(cell.equals(side))
                     rowCount += 1;
             }
-            if(rowCount == 3)
-                return true;//Winner
         }
+        //Vertical line
+        for (int i = 0; i < 3; i++) {
+            //(0=>"0,0|0,1|0,2");
+            //(1=>"1,0|1,1|1,2");
+            //(2=>"2,0|2,1|2,2");
+            System.out.println(i + "," + i);
+            System.out.println(i + 1 + "," + i);
+            System.out.println(i + 2 + "," + i);
+            if(board[i][i].equals(side) && board[i+1][i].equals(side) && board[i+2][i].equals(side)) {
+            }
+        }
+
+        for(String[] row : board) {
+            if(row[0].equals(side) && row[0].equals(side)) {
+
+            }
+        }
+        if(rowCount == 3)
+            return true;//Winner
 
         return false;
     }
